@@ -34,7 +34,7 @@ class ZoeCar:
         self.cotation = int(cotation)
 
     def set_seller_phone(self, seller_phone):
-        self.seller_phone = seller_phone
+        self.seller_phone = seller_phone.replace(' ', '').replace('.', '')
 
     def set_seller_type(self, seller_type):
         self.seller_type = seller_type
@@ -110,9 +110,9 @@ class LeBonCoinCrawler:
 
     @staticmethod
     def crawl_phone_number(description_tag):
-        if description_tag is not None:
+        if description_tag is None:
             return ''
-        match = re.match(r'.*([0-9]{10})', description_tag.text)
+        match = re.match(r'.*([0-9]{2}.?[0-9]{2}.?[0-9]{2}.?[0-9]{2}.?[0-9]{2})', description_tag.text)
         if match is None:
             return ''
         return match.groups()[0]
